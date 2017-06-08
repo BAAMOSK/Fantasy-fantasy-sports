@@ -7,12 +7,12 @@ Fantasy Fantasy Sports was built to be fast. Get the stats and get out. No annoy
 It was built to help settle the question, who is better Michael Jordan or Lebron James?
 There can only be one king...
 # Live
-Check out the app here: (https://fantasy-fantasy-sports.herokuapp.com)
+Check out the app here => https://fantasy-fantasy-sports.herokuapp.com
 # Tech Stack
-* Front-End
+Front-End
 * React
 * Redux
-* Back-End
+Back-End
 * Node.js
 * MongoDB
 * Mongoose
