@@ -3,9 +3,7 @@ import {addPlayerToTeam} from '../actions';
 import { connect } from 'react-redux';
 import './player-item.css';
 class PlayerItem extends Component {
-  constructor(props){
-    super(props);
-  }
+
 
   addPlayer(e){
     e.preventDefault();
@@ -17,8 +15,8 @@ class PlayerItem extends Component {
 
   render() {
     let player = this.props.player;
-    let headings = ['Player Name', 'Team', 'Position','Points/pg','Rebounds/PG','Assists/PG','Steals/PG','Turnovers/PG'];
-    let headers = headings.map(header => <th>{header}</th> );
+    // let headings = ['Player Name', 'Team', 'Position','Points/pg','Rebounds/PG','Assists/PG','Steals/PG','Turnovers/PG'];
+    // let headers = headings.map(header => <th>{header}</th> );
     return(
       <tbody>
         <tr>

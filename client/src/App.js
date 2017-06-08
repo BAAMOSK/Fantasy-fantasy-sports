@@ -5,7 +5,6 @@ import Header from './components/Header';
 import TeamList from './components/Team-List';
 import './App.css';
 import { fetchPlayers } from '../src/actions';
-import TeamName from './components/Team-Name';
 import store from './store';
 import Owner from './components/Owner';
 import { Navbar } from 'react-bootstrap';
@@ -38,6 +37,6 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   players: state.players.data
-})
+});
 
 export default connect(mapStateToProps)(App);

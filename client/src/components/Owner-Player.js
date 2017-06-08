@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { teamDataPush } from '../actions';
 // import {fetchPlayer} from '../actions';
 import './owner-player.css';
 
 class OwnerPlayer extends Component {
   componentDidMount() {
-    let player = this.props.player;
-    console.log(this.props.player);
+    // let player = this.props.player;
+    // console.log(this.props.player);
   }
   //   player.then(res=> this.props.dispatch(teamDataPush(res)));
   //   // console.log(data);

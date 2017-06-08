@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 class TeamItem extends Component {
-  constructor(props){
-    super(props);
-  }
+  // constructor(props){
+  //   super(props);
+  // }
 
   render() {
     let team = this.props.team;
@@ -21,7 +21,7 @@ class TeamItem extends Component {
         <strong>{this.props.team.owner}</strong>
           {list}
           <button type="button">Go To Page</button>
-         
+
         </tr>
     );
   }

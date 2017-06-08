@@ -1,69 +1,77 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import store from '../store';
 import PlayerList from './Player-List';
-import TeamList from './Team-List';
-import {pushTeamToDb, fetchPlayers, fetchTeams} from '../actions';
+import { pushTeamToDb, fetchPlayers } from '../actions';
 import './header.css';
 //  https://www.mysportsfeeds.com/api/feed/pull/nba/2016-2017-regular
 //  /cumulative_player_stats.json?
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   dispatchFetch(e) {
     e.preventDefault();
-      // var val = this.selectInput.value;
-      var val = this.nameInput.value;
+    // var val = this.selectInput.value;
+    var val = this.nameInput.value;
     // var selectVal = this.selectInput.value;
     // console.log(selectVal);
     this.props.dispatch(fetchPlayers(val));
-    this.nameInput.value='';
+    this.nameInput.value = '';
   }
-  addToDatabase(e){
+  addToDatabase(e) {
     e.preventDefault();
-        let teamObj = {
+    let teamObj = {
       owner: this.ownerInput.value,
-      players:{
-        guard1:this.props.team[0],
-        guard2:this.props.team[1],
-        forward1:this.props.team[2],
-        forward2:this.props.team[3],
-        center:this.props.team[4]
-      }
+      players: {
+        guard1: this.props.team[0],
+        guard2: this.props.team[1],
+        forward1: this.props.team[2],
+        forward2: this.props.team[3],
+        center: this.props.team[4],
+      },
     };
     this.props.dispatch(pushTeamToDb(teamObj));
     //this.ownerInput.value='';
     //<Link to=""></Link>
     //history.push(`/owner/:${teamObj.owner}`);
-
   }
 
   render() {
     //this is the entire object from API--console.log('this is inside the render function', this.props.team);
-    let teamRender = this.props.team.map((member, index)=> {
-      return(<li key={index}>member#{index+1} - {member.player.FirstName + ' ' +member.player.LastName}</li>)
+    let teamRender = this.props.team.map((member, index) => {
+      return (
+        <li key={index}>
+          member#{index + 1} -
+          {' '}{member.player.FirstName + ' ' + member.player.LastName}
+        </li>
+      );
     });
-    return(
+    return (
       <div>
-      <Link to='/owners'>Click to see owners</Link>
-      <h1>Welcome to</h1><h1>Fantasy Fantasy Sports</h1>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7exq6_YVJGfo6equ6tfjitTy5SxX8OkpKadodGj86IYVsFWSW" width={200} height={200} />
-            <h3>Choose a Sport</h3>
-      <form id="search-form" onSubmit={e => this.dispatchFetch(e) }>
-        <select className="sports">
-          {/*<option value hidden>Pick a sport</option>*/}
-          <option>Basketball</option>
-          {/*<option value="hockey">Hockey</option>
+        <Link to="/owners">Click to see owners</Link>
+        <h1>Welcome to</h1><h1>Fantasy Fantasy Sports</h1>
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7exq6_YVJGfo6equ6tfjitTy5SxX8OkpKadodGj86IYVsFWSW"
+          width={200}
+          height={200}
+          alt="App Logo"
+        />
+        <h3>Choose a Sport</h3>
+        <form id="search-form" onSubmit={e => this.dispatchFetch(e)}>
+          <select className="sports">
+            {/*<option value hidden>Pick a sport</option>*/}
+            <option>Basketball</option>
+            {/*<option value="hockey">Hockey</option>
           <option value="baseball">Baseball</option>
           <option value="football">Football</option>*/}
-        </select>
-        <input className="search" type="text" ref={(input) => this.nameInput = input} id="name-search" placeholder="Search By Last Name"/>
-        {/*<select name="hello" ref ={(input) => this.selectInput = input}>
+          </select>
+          <input
+            className="search"
+            type="text"
+            ref={input => (this.nameInput = input)}
+            id="name-search"
+            placeholder="Search By Last Name"
+          />
+          {/*<select name="hello" ref ={(input) => this.selectInput = input}>
           <option value hidden>Pick a team</option>
           <option value="ATL">Atlanta Hawks</option>
           <option value="BKN">Brooklyn Nets</option>
@@ -99,25 +107,31 @@ class Header extends Component {
 
           <button type="submit">Search</button>
 
-        <ul>
-          <input className="owner-name"type="text" placeholder="Name of Owner" ref={(input) => this.ownerInput = input}/>
-          <button type="button" onClick={e=>this.addToDatabase(e)}>Submit Team</button>
-        </ul>
+          <ul>
+            <input
+              className="owner-name"
+              type="text"
+              placeholder="Name of Owner"
+              ref={input => (this.ownerInput = input)}
+            />
+            <button type="button" onClick={e => this.addToDatabase(e)}>
+              Submit Team
+            </button>
+          </ul>
         </form>
-          <div className="center">
-            <PlayerList className="list" />
-            {teamRender}
-          </div>
+        <div className="center">
+          <PlayerList className="list" />
+          {teamRender}
+        </div>
       </div>
     );
   }
 }
-function mapStateToProps (state) {
+function mapStateToProps(state) {
   return {
     data: state.players.data,
-    team: state.players.team
+    team: state.players.team,
   };
 }
-
 
 export default connect(mapStateToProps)(Header);
