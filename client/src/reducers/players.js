@@ -1,46 +1,46 @@
 const initialState = {
   data: [],
   loading: false,
-  team:[]
-}
+  team: [],
+};
 
 const players = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'REQUEST_PLAYERS':
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case 'RECIEVE_PLAYERS':
       return {
         ...state,
         data: action.data,
-        loading: false
-      }
+        loading: false,
+      };
     case 'ADD_PLAYER_TO_TEAM':
-      return{
+      return {
         ...state,
-        team:[...state.team, action.data]
-      }
+        team: [...state.team, action.data],
+      };
     case 'DB_POST_START':
-      return{
+      return {
         ...state,
-        loading:true
-      }
+        loading: true,
+      };
     case 'DB_POST_SUCCESSFUL':
-      return{
+      return {
         ...state,
-        loading:false,
-        team:[]
-      }
+        loading: false,
+        team: [],
+      };
     case 'DB_POST_ERROR':
-      return{
+      return {
         ...state,
-        loading:false
-      }
+        loading: false,
+      };
     default:
       return state;
   }
-}
+};
 
-export default players
+export default players;

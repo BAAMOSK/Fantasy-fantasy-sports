@@ -1,8 +1,10 @@
 import React from 'react';
 import PlayerItem from './Player-Item';
 import { connect } from 'react-redux';
-const PlayerList = (props) => {
-  const players = props.data.map((player, index) => <PlayerItem player={player} key={index} />);
+const PlayerList = props => {
+  const players = props.data.map((player, index) =>
+    <PlayerItem player={player} key={index} />,
+  );
   return (
     <div className="center">
       <table className="table-striped">
@@ -23,11 +25,11 @@ const PlayerList = (props) => {
       </table>
     </div>
   );
-}
+};
 
-const mapStateToProps = (state) => {
-  return{
-    data: state.players.data
-  }
-}
-export default connect(mapStateToProps)(PlayerList)
+const mapStateToProps = state => {
+  return {
+    data: state.players.data,
+  };
+};
+export default connect(mapStateToProps)(PlayerList);

@@ -1,104 +1,92 @@
-const RECIEVE_TEAMS = `RECIEVE_TEAMS`;
-const recieveTeams = (data) => ({
+const RECIEVE_TEAMS = 'RECIEVE_TEAMS';
+const recieveTeams = data => ({
   type: RECIEVE_TEAMS,
-  data
+  data,
 });
 
-const REQUEST_TEAMS = `REQUEST_TEAMS`;
+const REQUEST_TEAMS = 'REQUEST_TEAMS';
 const requestTeams = () => ({
-  type: REQUEST_TEAMS
+  type: REQUEST_TEAMS,
 });
 
-const RECIEVE_PLAYERS = `RECIEVE_PLAYERS`;
-const recievePlayers = (data) => ({
+const RECIEVE_PLAYERS = 'RECIEVE_PLAYERS';
+const recievePlayers = data => ({
   type: RECIEVE_PLAYERS,
-  data
+  data,
 });
 
-const REQUEST_PLAYERS = `REQUEST_PLAYERS`;
+const REQUEST_PLAYERS = 'REQUEST_PLAYERS';
 const requestPlayers = () => ({
-  type: REQUEST_PLAYERS
+  type: REQUEST_PLAYERS,
 });
 
-export const ADD_PLAYER_TO_TEAM = `ADD_PLAYER_TO_TEAM`;
-export const addPlayerToTeam = (data) => ({
+export const ADD_PLAYER_TO_TEAM = 'ADD_PLAYER_TO_TEAM';
+export const addPlayerToTeam = data => ({
   type: ADD_PLAYER_TO_TEAM,
-  data
+  data,
 });
 
-export const DB_POST_START = `DB_POST_START`;
+export const DB_POST_START = 'DB_POST_START';
 export const dbPostStart = () => ({
-  type: DB_POST_START
+  type: DB_POST_START,
 });
 
-export const DB_POST_SUCCESSFUL = `DB_POST_SUCCESSFUL`;
+export const DB_POST_SUCCESSFUL = 'DB_POST_SUCCESSFUL';
 export const dbPostSuccessful = () => ({
-  type: DB_POST_SUCCESSFUL
+  type: DB_POST_SUCCESSFUL,
 });
 
-export const DB_POST_ERROR = `DB_POST_ERROR`;
-export const dbPostError = (error) => ({
+export const DB_POST_ERROR = 'DB_POST_ERROR';
+export const dbPostError = error => ({
   type: DB_POST_ERROR,
-  error
+  error,
 });
 
-export const DB_GET_START = `DB_GET_START`;
+export const DB_GET_START = 'DB_GET_START';
 export const dbGetStart = () => ({
-  type: DB_GET_START
+  type: DB_GET_START,
 });
 
-export const DB_GET_SUCCESSFUL = `DB_GET_SUCCESSFUL`;
-export const dbGetSuccessful = (data) => ({
+export const DB_GET_SUCCESSFUL = 'DB_GET_SUCCESSFUL';
+export const dbGetSuccessful = data => ({
   type: DB_GET_SUCCESSFUL,
-  data
+  data,
 });
 
-export const DB_GET_ERROR = `DB_GET_ERROR`;
-export const dbGetError = (error) => ({
+export const DB_GET_ERROR = 'DB_GET_ERROR';
+export const dbGetError = error => ({
   type: DB_GET_ERROR,
-  error
+  error,
 });
 
-export const TEAM_DATA_PUSH = `TEAM_DATA_PUSH`;
-export const teamDataPush = (data) => ({
-  type:TEAM_DATA_PUSH,
-  data
+export const TEAM_DATA_PUSH = 'TEAM_DATA_PUSH';
+export const teamDataPush = data => ({
+  type: TEAM_DATA_PUSH,
+  data,
 });
 
 //USED for validation
-const username = `baamosk`;
-const password = `Jajuka888`;
-const auth = btoa(username + `:` + password);
-const Authorization = {headers: { Authorization: `Basic ${auth}` }};
+const username = 'baamosk';
+const password = 'Jajuka888';
+const auth = btoa(username + ':' + password);
+const Authorization = { headers: { Authorization: `Basic ${auth}` } };
 
-// const players = 'stephen-curry';
-// const team = '';
-
-export const fetchPlayers = (search) => {
-  //This gets the roster for GSW game 4 on 5/22
-  //const URL = 'https://www.mysportsfeeds.com/api/feed/pull/nba/2017-playoff/roster_players.json?fordate=20170522&team=gsw&player';
+export const fetchPlayers = search => {
   const URL = `https://www.mysportsfeeds.com/api/feed/pull/nba/2016-2017-regular/cumulative_player_stats.json?playerstats=2PA,2PM,3PA,3PM,FTA,FTM,PTS/G,AST/G,STL/G,REB/G,TOV/G&player=${search}`;
   return dispatch => {
     dispatch(requestPlayers());
-    //second arg in fetch can be opts
     fetch(URL, Authorization)
-    .then(response => response.json())
-    .then(res => dispatch(recievePlayers(res.cumulativeplayerstats.playerstatsentry)))
-    .catch(err => console.log(err));
+      .then(response => response.json())
+      .then(res =>
+        dispatch(recievePlayers(res.cumulativeplayerstats.playerstatsentry)),
+      )
+      .catch(err => console.log(err));
   };
 };
 
-// export const fetchPlayer = (search) => {
-//   const URL = `https://www.mysportsfeeds.com/api/feed/pull/nba/2016-2017-regular/cumulative_player_stats.json?playerstats=2PA,2PM,3PA,3PM,FTA,FTM,PTS/G,AST/G,STL/G,REB/G,TOV/G&player=${search}`;
-//   fetch(URL, Authorization)
-//   .then(res => res.json())
-//   .catch(err => console.error(err));
-// };
-
-//Promise.all([fetchPlayer([0]),...])
 export const fetchTeams = () => {
-  const url = `/api/teams`;
-  return dispatch =>{
+  const url = '/api/teams';
+  return dispatch => {
     dispatch(requestTeams());
     fetch(url)
       .then(res => res.json())
@@ -107,51 +95,39 @@ export const fetchTeams = () => {
   };
 };
 
-
-export const pushTeamToDb = (teamObj) => {
-  const url = `/api/teams`;
-  // console.log(team);
+export const pushTeamToDb = teamObj => {
+  const url = '/api/teams';
   const headers = {
-    'Content-Type': `application/json`
+    'Content-Type': 'application/json',
   };
-  // const teamObj = {
-  //   owner:'harrison',
-  //   players: {
-  //     guard1:team[0],
-  //     guard2:team[1],
-  //     forward1:team[2],
-  //     forward2:team[3],
-  //     center:team[4]
-  //   }
-  // };
   const options = {
-    method: `POST`,
+    method: 'POST',
     body: JSON.stringify(teamObj),
-    headers:headers
+    headers: headers,
   };
   return dispatch => {
     dispatch(dbPostStart());
     fetch(url, options)
-    .then(res => res.json())
-    .then(res => {console.log(res);dispatch(dbPostSuccessful());})
-    .catch(err => console.error(err));
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        dispatch(dbPostSuccessful());
+      })
+      .catch(err => console.error(err));
   };
 };
 
-export const fetchOwnerTeam = (owner) => {
+export const fetchOwnerTeam = owner => {
   const url = `/api/owners/${owner}`;
   return dispatch => {
     dispatch(dbGetStart());
 
     fetch(url)
-    .then(res => res.json())
-    .then(res => {console.log(res);dispatch(dbGetSuccessful(res));})
-    .catch(err => console.error(err));
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+        dispatch(dbGetSuccessful(res));
+      })
+      .catch(err => console.error(err));
   };
 };
-
-// const opts = {
-//   headers: {
-//     authorization: `Bearer ${YelpToken}`
-//   }
-// }

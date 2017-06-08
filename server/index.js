@@ -1,35 +1,27 @@
 const path = require('path');
 const express = require('express');
-const {DATABASE_URL} = require('./config');
+const { DATABASE_URL } = require('./config');
 const mongoose = require('mongoose');
 const app = express();
-const {Team} = require('./models');
+const { Team } = require('./models');
 const bodyParser = require('body-parser');
 
-// app.use(function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//   next();
-// });
+mongoose.Promise = global.Promise;
 app.use(bodyParser.json());
 
-
 app.get('/api/teams', (req, res) => {
-  Team
-    .find()
+  Team.find()
     .then(result => res.status(200).json(result))
     .catch(err => console.error(err));
 });
 
 app.post('/api/teams', (req, res) => {
-  console.log(req.body);
   req.body.owner = req.body.owner.toLowerCase();
-  Team
-    .create({
-      owner: req.body.owner,
-      memberIds: req.body.players
-    })
-    .then((result)=> res.status(201).json(result))
+  Team.create({
+    owner: req.body.owner,
+    memberIds: req.body.players,
+  })
+    .then(result => res.status(201).json(result))
     .catch(err => console.error(err));
 });
 
@@ -43,24 +35,20 @@ app.put('/api/teams', (req, res) => {
     }
   });
 
-  Team
-    .findByIdAndUpdate(req.body.id, {$set: toUpdate})
+  Team.findByIdAndUpdate(req.body.id, { $set: toUpdate })
     .then(result => res.status(204).end())
-    .catch(err=>console.error(err));
-
+    .catch(err => console.error(err));
 });
 
 app.delete('/api/teams', (req, res) => {
-  Team
-    .findByIdAndRemove(req.body.id)
+  Team.findByIdAndRemove(req.body.id)
     .then(() => res.status(204).end())
     .catch(err => console.error(err));
 });
 
 app.get('/api/owners/:owner', (req, res) => {
   req.params.owner = req.params.owner.toLowerCase();
-  Team
-    .find({owner:req.params.owner})
+  Team.find({ owner: req.params.owner })
     .then(result => res.status(200).json(result))
     .catch(err => console.error(err));
 });
@@ -75,22 +63,24 @@ app.get(/^(?!\/api(\/|$))/, (req, res) => {
 });
 
 let server;
-function runServer(port=3001) {
+function runServer(port = 3001) {
   return new Promise((resolve, reject) => {
     mongoose.connect(DATABASE_URL, err => {
       if (err) {
         return reject(err);
       }
-      server = app.listen(port, () => {
-        console.log(`Your app is listening on port ${port}`);
-        resolve();
-      })
-      .on('error', err => {
-        mongoose.disconnect();
-        reject(err);
-      });
+      server = app
+        .listen(port, () => {
+          console.log(`Your app is listening on port ${port}`);
+          resolve();
+        })
+        .on('error', err => {
+          mongoose.disconnect();
+          reject(err);
+        });
     });
-  });}
+  });
+}
 
 function closeServer() {
   return mongoose.disconnect().then(() => {
@@ -111,5 +101,7 @@ if (require.main === module) {
 }
 
 module.exports = {
-  app, runServer, closeServer
+  app,
+  runServer,
+  closeServer,
 };

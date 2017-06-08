@@ -1,25 +1,25 @@
 const initialState = {
   data: [],
   loading: false,
-  team:[]
-}
+  team: [],
+};
 
 const teams = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case 'REQUEST_TEAMS':
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case 'RECIEVE_TEAMS':
       return {
         ...state,
         data: action.data,
-        loading: false
-      }
+        loading: false,
+      };
     default:
       return state;
   }
-}
+};
 
-export default teams
+export default teams;

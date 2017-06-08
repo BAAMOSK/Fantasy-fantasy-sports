@@ -2,7 +2,7 @@ const initialState = {
   data: [],
   loading: false,
   teamData: [],
-  teams:[]
+  teams: [],
 };
 
 const owner = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const owner = (state = initialState, action) => {
     case 'RECIEVE_TEAMS':
       return {
         ...state,
-        teams: action.data
+        teams: action.data,
       };
     case 'DB_GET_START':
       return {

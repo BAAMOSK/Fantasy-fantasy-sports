@@ -7,11 +7,10 @@ const teamSchema = mongoose.Schema({
     guard2: Object,
     forward1: Object,
     forward2: Object,
-    center: Object
-  }
+    center: Object,
+  },
 });
-
 
 const Team = mongoose.model('Team', teamSchema);
 
-module.exports = {Team}; 
+module.exports = { Team };

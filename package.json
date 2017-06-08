@@ -1,7 +1,7 @@
 {
-  "name": "thinkful-full-stack-template-v2",
+  "name": "Fantasy Fantasy Sports",
   "version": "0.1.0",
-  "description": "A full-stack starter template",
+  "description": "Get real-time stats on any player.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -18,7 +18,7 @@
     "server/node_modules",
     "client/node_modules"
   ],
-  "author": "Joe Turner <jturner@thinkful.com>",
+  "author": "Tee Mak <bunth667@gmail.com> & Harrison Wright <htwright@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "cross-env": "^3.1.4",
@@ -26,7 +26,5 @@
     "http-proxy-middleware": "^0.17.4",
     "npm-run-all": "^4.0.1",
     "xp": "^1.0.1"
-  },
-  "devDependencies": {
   }
 }

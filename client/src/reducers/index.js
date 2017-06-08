@@ -6,7 +6,7 @@ import owner from './owner';
 const rootReducer = combineReducers({
   players,
   teams,
-  owner
+  owner,
 });
 
 export default rootReducer;

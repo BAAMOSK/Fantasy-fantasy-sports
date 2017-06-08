@@ -7,12 +7,10 @@ import './App.css';
 import { fetchPlayers } from '../src/actions';
 import store from './store';
 import Owner from './components/Owner';
-import { Navbar } from 'react-bootstrap';
 import PlayerList from './components/Player-List';
 import OwnerList from './components/Owner-List';
 
 class App extends Component {
-
   componentDidMount() {
     this.props.dispatch(fetchPlayers());
   }
@@ -22,11 +20,10 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-
             <Route exact path="/" component={Header} />
             <Route exact path="/owners" component={OwnerList} />
             <Route exact path="/owners/:owner" component={Owner} />
-            <Route exaxt path="/players" component={PlayerList}/>
+            <Route exaxt path="/players" component={PlayerList} />
             <Route exact path="/teams" component={TeamList} />
           </div>
         </Router>
@@ -35,8 +32,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  players: state.players.data
+const mapStateToProps = state => ({
+  players: state.players.data,
 });
 
 export default connect(mapStateToProps)(App);

@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { fetchTeams } from '../actions';
 
 class OwnerList extends Component {
-  // constructor(props){
-  //   super(props);
-  // }
   componentDidMount() {
     this.props.dispatch(fetchTeams());
   }
