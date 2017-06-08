@@ -9,10 +9,10 @@ There can only be one king...
 # Live
 Check out the app here => https://fantasy-fantasy-sports.herokuapp.com
 # Tech Stack
-Front-End
+### Front-End
 * React
 * Redux
-Back-End
+### Back-End
 * Node.js
 * MongoDB
 * Mongoose
